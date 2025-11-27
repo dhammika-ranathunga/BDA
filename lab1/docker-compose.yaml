@@ -48,6 +48,21 @@ services:
     networks:
       - hadoop
 
+    datanode3:
+    image: bde2020/hadoop-datanode:2.0.0-hadoop3.2.1-java8
+    container_name: datanode3
+    restart: always
+    depends_on:
+      - namenode
+    volumes:
+      - hadoop_datanode3:/hadoop/dfs/data
+    environment:
+      SERVICE_PRECONDITION: "namenode:9870"
+    env_file:
+      - ./hadoop.env
+    networks:
+      - hadoop    
+
   resourcemanager:
     image: bde2020/hadoop-resourcemanager:2.0.0-hadoop3.2.1-java8
     container_name: resourcemanager
@@ -56,6 +71,7 @@ services:
       - namenode
       - datanode1
       - datanode2
+      - datanode3
     ports:
       - "8088:8088" # ResourceManager Web UI
     environment:
@@ -95,6 +111,7 @@ volumes:
   hadoop_namenode:
   hadoop_datanode1:
   hadoop_datanode2:
+  hadoop_datanode3:
 
 networks:
   hadoop:
