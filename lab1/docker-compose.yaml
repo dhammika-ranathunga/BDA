@@ -75,7 +75,7 @@ services:
     ports:
       - "8088:8088" # ResourceManager Web UI
     environment:
-      SERVICE_PRECONDITION: "namenode:9000 namenode:9870 datanode1:9864 datanode2:9864"
+      SERVICE_PRECONDITION: "namenode:9000 namenode:9870 datanode1:9864 datanode2:9864 datanode3:9864"
     env_file:
       - ./hadoop.env
     networks:
